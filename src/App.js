@@ -17,20 +17,6 @@ export default class App extends React.Component {
     }
   }
 
-  toggleLayer(layer) {
-    if (!this.map) {
-      return // if the map is not initialized do nothing
-    }
-
-    const newState = !this.state.layers[layer]
-
-    this.map.setLayoutProperty(layer, 'visibility', newState ? 'visible' : 'none')
-
-    this.setState(update(this.state, {
-      layers: { [layer]: {$set: newState} }
-    }))
-  }
-
   componentDidMount() {
     this.map = new mapboxgl.Map({
       container: this.mapContainer,
@@ -77,6 +63,20 @@ export default class App extends React.Component {
           }
       })
     })
+  }
+
+  toggleLayer(layer) {
+    if (!this.map) {
+      return // if the map is not initialized do nothing
+    }
+
+    const newState = !this.state.layers[layer]
+
+    this.map.setLayoutProperty(layer, 'visibility', newState ? 'visible' : 'none')
+
+    this.setState(update(this.state, {
+      layers: { [layer]: {$set: newState} }
+    }))
   }
 
   render() {
